@@ -11,6 +11,8 @@ if (env==='dev') {
 	var user     = 'root'
 	var password = ''
 	var database = 'bison_db'
+	var sslkey	 = 'C:/xampp/apache/conf/ssl.key/server.key'
+	var sslcert	 = 'C:/xampp/apache/conf/ssl.crt/server.crt'
 } else if (env==='test') {
 	//APP
 	var portApp	 = 8512
@@ -29,6 +31,8 @@ if (env==='dev') {
 	var user     = 'root'
 	var password = ''
 	var database = 'bison_db'
+	var sslkey	 = 'C:/xampp/apache/conf/ssl.key/server.key'
+	var sslcert	 = 'C:/xampp/apache/conf/ssl.crt/server.crt'
 }
 //APP
 module.exports.portApp = portApp
@@ -38,3 +42,5 @@ module.exports.host     = host
 module.exports.user     = user
 module.exports.password = password
 module.exports.database = database
+module.exports.sslkey = sslkey
+module.exports.sslcert = sslcert

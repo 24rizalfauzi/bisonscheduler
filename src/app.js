@@ -48,19 +48,22 @@ job.start()
 // job.start()
 
 async function pullweb(){
-    var command = "cd "+config.dirbisonweb+"&&git init&&"+config.gitpullbisonweb
+    var command = `cd ${config.dirbisonweb}`+
+                    `&&git init`+
+                    `&&${config.gitpullbisonweb}`
     console.log(command)
     var execweb = exec(command, function(err, stdout, stderr) {
         if (err) {
             // should have err.code here?  
             console.log(err)
         }
-        console.log('stdout :');
+        console.log('stdout pullweb :');
         console.log(stdout);
     });
 
     execweb.on('exit', function (code) {
         // exit code is code
+        console.log('code pullweb :')
         console.log(code)
     });
 }
@@ -68,19 +71,21 @@ async function pullweb(){
 async function pullmiddeware(){
     var command = `cd ${config.dirbisonmiddleware}`+
                     `&&git init`+
-                    `&&${config.gitpullbisonmiddleware}`
+                    `&&${config.gitpullbisonmiddleware}`+
+                    `&&copy "${config.dirbisonscheduler}\\src\\template_config\\bisonmiddleware\\config.js" "${config.dirbisonmiddleware}\\src\\config.js"`
     console.log(command)
     var execmiddleware = exec(command, function(err, stdout, stderr) {
         if (err) {
             // should have err.code here?  
             console.log(err)
         }
-        console.log('stdout :');
+        console.log('stdout pullmiddeware :');
         console.log(stdout);
     });
 
     execmiddleware.on('exit', function (code) {
         // exit code is code
+        console.log('code pullmiddeware :');
         console.log(code)
     });
 }
