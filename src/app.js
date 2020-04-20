@@ -5,8 +5,9 @@ global.config = require('./config.js')
 var sys = require('sys')
 var exec = require('child_process').exec;
 
+pullscheduler()
 pullweb()
-pullmiddeware()
+pullmiddleware()
 
 var request = require('request');
 request = request.defaults({
@@ -21,8 +22,9 @@ request = request.defaults({
 //pull code
 var CronJob = require('cron').CronJob;
 var job = new CronJob('0 45 1 * * *', async function() {
-  await pullweb()
-  await pullmiddeware()
+    await pullscheduler()
+    await pullweb()
+    await pullmiddleware()
 }, null, true, 'America/Los_Angeles')
 job.start()
 
@@ -47,6 +49,28 @@ var job = new CronJob('0 45 8 * * *', async function() {
 }, null, true, 'Asia/Jakarta')
 job.start()
 
+async function pullscheduler(){
+    var command = `cd "${config.dirbisonscheduler}"`+
+                    `&&git init`+
+                    `&&${config.gitpullbisonscheduler}`+
+                    `&&copy "${config.dirbisonscheduler}\\src\\template_config\\bisonscheduler\\config.js" "${config.dirbisonscheduler}\\src\\config.js"`
+    console.log(command)
+    var execmiddleware = exec(command, function(err, stdout, stderr) {
+        if (err) {
+            // should have err.code here?  
+            console.log(err)
+        }
+        console.log('stdout pullscheduler :');
+        console.log(stdout);
+    });
+
+    execmiddleware.on('exit', function (code) {
+        // exit code is code
+        console.log('code pullscheduler :');
+        console.log(code)
+    });
+}
+
 async function pullweb(){
     var command = `cd "${config.dirbisonweb}"`+
                     `&&git init`+
@@ -68,7 +92,7 @@ async function pullweb(){
     });
 }
 
-async function pullmiddeware(){
+async function pullmiddleware(){
     var command = `cd "${config.dirbisonmiddleware}"`+
                     `&&git init`+
                     `&&${config.gitpullbisonmiddleware}`+
@@ -79,13 +103,13 @@ async function pullmiddeware(){
             // should have err.code here?  
             console.log(err)
         }
-        console.log('stdout pullmiddeware :');
+        console.log('stdout pullmiddleware :');
         console.log(stdout);
     });
 
     execmiddleware.on('exit', function (code) {
         // exit code is code
-        console.log('code pullmiddeware :');
+        console.log('code pullmiddleware :');
         console.log(code)
     });
 }
