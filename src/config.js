@@ -1,6 +1,6 @@
 'use strict'
 
-var env = process.env.NODE_ENV 
+var env = process.env.NODE_ENV
 
 if (env==='dev') {
 	//APP
@@ -11,11 +11,16 @@ if (env==='dev') {
 	var password	= ''
 	var database 	= 'bison_db'
 	//EMAIL
-	var mailSender 	= '"Rizal Fauzi" <24rizalfauzi@gmail.com>'
+	var mailSender 		= '"Rizal Fauzi" <24rizalfauzi@gmail.com>'
 	var smtpHost		= 'smtp.gmail.com'
 	var smtpPort		= 587
 	var smtpAuthUser	= '24rizalfauzi@gmail.com'
 	var smtpAuthPass	= '"84d=CEg_`S(@SwN'
+	//GIT
+	var dirbisonmiddleware		= 'E:/EP/BISONDOCS/github/prod/bison_middleware'
+	var dirbisonweb				= 'E:/xampp/htdocs/bisonweb'
+	var gitpullbisonmiddleware	= 'git pull https://24rizalfauzi:*****r1zalf4Uzi*****@github.com/24rizalfauzi/bisonmiddleware.git'
+	var gitpullbisonweb			= 'git pull https://24rizalfauzi:*****r1zalf4Uzi*****@github.com/24rizalfauzi/bisonmiddleware.git'
 } else if (env==='test') {
 	//APP
 	var portApp		= 8513
@@ -46,15 +51,20 @@ if (env==='dev') {
 	var smtpAuthPass	= '"84d=CEg_`S(@SwN'
 }
 //APP
-module.exports.portApp = portApp
+module.exports.portApp	= portApp
 //DB
 module.exports.host     = host
 module.exports.user     = user
 module.exports.password = password
 module.exports.database = database
 //EMAIL
-module.exports.smtpHost = smtpHost
-module.exports.smtpPort = smtpPort
+module.exports.smtpHost 	= smtpHost
+module.exports.smtpPort 	= smtpPort
 module.exports.smtpAuthUser = smtpAuthUser
 module.exports.smtpAuthPass = smtpAuthPass
-module.exports.mailSender = mailSender
+module.exports.mailSender 	= mailSender
+//GIT
+module.exports.dirbisonmiddleware 		= dirbisonmiddleware
+module.exports.dirbisonweb 				= dirbisonweb
+module.exports.gitpullbisonmiddleware 	= gitpullbisonmiddleware
+module.exports.gitpullbisonweb 			= gitpullbisonweb
