@@ -12,7 +12,7 @@ request = request.defaults({
     }
 })
 
-//push notif
+//push notif 
 var CronJob = require('cron').CronJob;
 var job = new CronJob('*/5 * * * * *', async function() {
   await parsingQueryNotifThenSend()
@@ -65,7 +65,7 @@ async function parsingQueryNotifThenSend(){
           
           request(options, function (error, response, body) {
             if (!error && response.statusCode == 200) {
-              console.log('sukses push notif')
+              console.log('sukses push notif, tbl_push_notif.id : '+queryPushNotif[0][i].id)
             }
         });
         await query(`call procUpdateIsPushNotif(`+queryPushNotif[0][i].id+`)`)
@@ -73,8 +73,6 @@ async function parsingQueryNotifThenSend(){
 }
 
 async function parsingUsersLastActiveThenSend(){
-
-    console.log('parsing inactive User then send email to admin')
 
     var queryGetAdmins = await query(`call procGetAdmins()`)
     var queryGetUsers = await query(`call procGetUsers()`)
@@ -106,7 +104,7 @@ async function parsingUsersLastActiveThenSend(){
 
     console.log(emailText)
 
-    var doit = await sendEmail({
+    var doit = await sendEmailToAdminLastActiveUser({
         userEmail : emailAdmins,
         subject : 'List User yang tidak aktif selama lebih dari 7 hari - Bali Smart Innovation',
         text : emailText,
@@ -116,7 +114,6 @@ async function parsingUsersLastActiveThenSend(){
 }
 
 async function parsingQueryPushEmailThenSend(){
-    console.log('parsing push email then send')
     var queryPushEmail = await query(`call procGetPushEmail()`)
     var doit = null
     for (var i = 0; i < queryPushEmail[0].length; i++) {
@@ -131,34 +128,7 @@ async function parsingQueryPushEmailThenSend(){
     }
 }
 
-async function parsingQueryPushNotifThenSend(){
-    console.log('parsing push notif then send')
-    var queryPushNotif = await query(`call procGetPushNotif()`)
-    var doit = null
-    for (var i = 0; i < queryPushNotif[0].length; i++) {
-        doit = await pushNotifThenUpdateTableWhenSuccess({
-            notifId : queryPushNotif[0][i].notifId,
-            token : queryPushNotif[0][i].token,
-            message : queryPushNotif[0][i].message
-        })
-    }
-}
-
-async function pushNotifThenUpdateTableWhenSuccess(req) {
-return new Promise(function (resolve, reject) {
-        try {
-            (async () => {
-                await query(`call procUpdateSendPushNotif("`+req.notifId+`","true");`)
-                resolve('success push notif id:'+req.notifId)
-            })()
-        } catch (error) {
-            console.log('errPushNotif : '+error)
-            reject('errPushNotif : '+error)
-        }
-    })
-}
-
-async function sendEmail(req) {
+async function sendEmailToAdminLastActiveUser(req) {
 return new Promise(function (resolve, reject) {
         try {
             (async () => {
