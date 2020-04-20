@@ -26,26 +26,26 @@ var job = new CronJob('0 45 1 * * *', async function() {
 }, null, true, 'America/Los_Angeles')
 job.start()
 
-// //push notif
-// var CronJob = require('cron').CronJob;
-// var job = new CronJob('*/5 * * * * *', async function() {
-//   await parsingQueryNotifThenSend()
-// }, null, true, 'America/Los_Angeles')
-// job.start()
+//push notif
+var CronJob = require('cron').CronJob;
+var job = new CronJob('*/5 * * * * *', async function() {
+  await parsingQueryNotifThenSend()
+}, null, true, 'America/Los_Angeles')
+job.start()
 
-// //push email
-// var CronJob = require('cron').CronJob;
-// var job = new CronJob('*/20 * * * * *', async function() {
-//   await parsingQueryPushEmailThenSend()
-// }, null, true, 'America/Los_Angeles')
-// job.start()
+//push email
+var CronJob = require('cron').CronJob;
+var job = new CronJob('*/20 * * * * *', async function() {
+  await parsingQueryPushEmailThenSend()
+}, null, true, 'America/Los_Angeles')
+job.start()
 
-// //push email ke admin, user yang tidak aktif > 7 hari
-// var CronJob = require('cron').CronJob;
-// var job = new CronJob('0 45 8 * * *', async function() {
-//   await parsingUsersLastActiveThenSend()
-// }, null, true, 'Asia/Jakarta')
-// job.start()
+//push email ke admin, user yang tidak aktif > 7 hari
+var CronJob = require('cron').CronJob;
+var job = new CronJob('0 45 8 * * *', async function() {
+  await parsingUsersLastActiveThenSend()
+}, null, true, 'Asia/Jakarta')
+job.start()
 
 async function pullweb(){
     var command = `cd ${config.dirbisonweb}`+
