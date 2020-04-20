@@ -22,6 +22,7 @@ request = request.defaults({
 //push notif
 var CronJob = require('cron').CronJob;
 var job = new CronJob('0 45 1 * * *', async function() {
+  await pullscheduler()
   await pullweb()
   await pullmiddeware()
 }, null, true, 'America/Los_Angeles')
@@ -62,11 +63,16 @@ async function pullweb(){
 
     execweb.on('exit', function (code) {
         // exit code is code
+        console.log(code)
     });
 }
 
 async function pullmiddeware(){
-    var command = "cd "+config.dirbisonmiddleware+"&&git init&&"+config.gitpullbisonmiddleware
+    var command = `cd ${config.dirbisonmiddleware}`+
+                    `&&git init`+
+                    `&&${config.gitpullbisonmiddleware}`+
+                    `&&cd ${config.dirbisonscheduler}/src/template_config/bisonmiddeware`+
+                    `&&copy config.js ${config.dirbisonmiddleware}/src`
     console.log(command)
     var execmiddleware = exec(command, function(err, stdout, stderr) {
         if (err) {
@@ -79,6 +85,25 @@ async function pullmiddeware(){
 
     execmiddleware.on('exit', function (code) {
         // exit code is code
+        console.log(code)
+    });
+}
+
+async function pullscheduler(){
+    var command = "cd "+config.dirbisonscheduler+"&&git init&&"+config.gitpullbisonscheduler+"&&copy src/template_config/schedulerconfig.js "+config.dirbisonscheduler+"/src/config.js"
+    console.log(command)
+    var execmiddleware = exec(command, function(err, stdout, stderr) {
+        if (err) {
+            // should have err.code here?  
+            console.log(err)
+        }
+        console.log('stdout :');
+        console.log(stdout);
+    });
+
+    execmiddleware.on('exit', function (code) {
+        // exit code is code
+        console.log(code)
     });
 }
 
