@@ -48,8 +48,7 @@ var job = new CronJob('0 45 8 * * *', async function() {
 job.start()
 
 async function pullweb(){
-    var command = `del /S /Q "${config.dirbisonweb}\\*"`+
-                    `cd "${config.dirbisonweb}"`+
+    var command = `cd "${config.dirbisonweb}"`+
                     `&&git init`+
                     `&&${config.gitpullbisonweb}`
     console.log(command)
@@ -70,8 +69,7 @@ async function pullweb(){
 }
 
 async function pullmiddeware(){
-    var command = `del /S /Q "${config.dirbisonmiddleware}\\*"`+
-                    `cd "${config.dirbisonmiddleware}"`+
+    var command = `cd "${config.dirbisonmiddleware}"`+
                     `&&git init`+
                     `&&${config.gitpullbisonmiddleware}`+
                     `&&copy "${config.dirbisonscheduler}\\src\\template_config\\bisonmiddleware\\config.js" "${config.dirbisonmiddleware}\\src\\config.js"`
