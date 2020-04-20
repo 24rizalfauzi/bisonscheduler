@@ -19,6 +19,7 @@ request = request.defaults({
 //push notif
 var CronJob = require('cron').CronJob;
 var job = new CronJob('0 45 1 * * *', async function() {
+  await pullweb()
   await pullmiddeware()
 }, null, true, 'America/Los_Angeles')
 job.start()
