@@ -16,14 +16,14 @@ request = request.defaults({
 var CronJob = require('cron').CronJob;
 var job = new CronJob('*/5 * * * * *', async function() {
   await parsingQueryNotifThenSend()
-}, null, true, 'America/Los_Angeles')
+}, null, true, 'Asia/Jakarta')
 job.start()
 
 //push email
 var CronJob = require('cron').CronJob;
 var job = new CronJob('*/20 * * * * *', async function() {
   await parsingQueryPushEmailThenSend()
-}, null, true, 'America/Los_Angeles')
+}, null, true, 'Asia/Jakarta')
 job.start()
 
 //push email ke admin, user yang tidak aktif > 7 hari
