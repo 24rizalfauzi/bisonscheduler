@@ -5,7 +5,10 @@ global.config = require('./config.js')
 var sys = require('sys')
 var exec = require('child_process').exec;
 
-global.config = require('./config.js')
+
+pullweb()
+pullmiddeware()
+
 var request = require('request');
 request = request.defaults({
     //'proxy':config.proxyPass,
@@ -46,7 +49,8 @@ job.start()
 // job.start()
 
 async function pullweb(){
-    var command = "cd "+config.dirmiddleware+"&&git init&&"+config.gitpullbisonweb
+    var command = "cd "+config.dirbisonweb+"&&git init&&"+config.gitpullbisonweb
+    console.log(command)
     var execweb = exec(command, function(err, stdout, stderr) {
         if (err) {
             // should have err.code here?  
@@ -58,13 +62,12 @@ async function pullweb(){
 
     execweb.on('exit', function (code) {
         // exit code is code
-        console.log('code :')
-        console.log(code)
     });
 }
 
 async function pullmiddeware(){
-    var command = "cd "+config.dirmiddleware+"&&git init&&"+config.gitpullbisonmiddleware
+    var command = "cd "+config.dirbisonmiddleware+"&&git init&&"+config.gitpullbisonmiddleware
+    console.log(command)
     var execmiddleware = exec(command, function(err, stdout, stderr) {
         if (err) {
             // should have err.code here?  
@@ -76,26 +79,6 @@ async function pullmiddeware(){
 
     execmiddleware.on('exit', function (code) {
         // exit code is code
-        console.log('code :')
-        console.log(code)
-    });
-}
-
-async function pullweb(){
-    var execmiddleware = exec(command, function(err, stdout, stderr) {
-        if (err) {
-            // should have err.code here?  
-            console.log(err)
-        }
-        var command = "cd "+config.dirmiddleware+"&&git init&&"+config.gitpullmiddleware+""
-        console.log('stdout :');
-        console.log(stdout);
-    });
-
-    execmiddleware.on('exit', function (code) {
-        // exit code is code
-        console.log('code :')
-        console.log(code)
     });
 }
 
