@@ -1,0 +1,21 @@
+{
+  "name": "bison_scheduler",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "NODE_ENV=dev node src/app.js",
+    "testt": "mocha specs --reporter spec",
+    "dev": "set NODE_ENV=dev&&nodemon src/app.js",
+    "test": "set NODE_ENV=test&&nodemon src/app.js",
+    "prod": "set NODE_ENV=prod&&nodemon src/app.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cron": "^1.8.2",
+    "mysql": "^2.17.1",
+    "nodemailer": "^6.4.3",
+    "request": "^2.88.2"
+  }
+}
