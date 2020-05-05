@@ -142,6 +142,9 @@ return new Promise(function (resolve, reject) {
                         auth: {
                             user: config.smtpAuthUser, // generated ethereal user
                             pass: config.smtpAuthPass // generated ethereal password
+                        },
+                        tls: {
+                            rejectUnauthorized: false
                         }
                     })
 
@@ -187,6 +190,9 @@ return new Promise(function (resolve, reject) {
                         auth: {
                             user: config.smtpAuthUser, // generated ethereal user
                             pass: config.smtpAuthPass // generated ethereal password
+                        },
+                        tls: {
+                            rejectUnauthorized: false
                         }
                     })
 
